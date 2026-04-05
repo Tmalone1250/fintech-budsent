@@ -40,6 +40,7 @@ Financial data is precious. We use an **MSVCRT-locked**, temp-swap pattern to up
 Every action (AUTHORIZATION, SETTLEMENT, REVOCATION, RETRIES) is captured in a high-fidelity JSON-structured log (`security.log`). This enables real-time monitoring and exhaustive post-mortem forensic analysis.
 
 ![Security Audit Trace](docs/assets/security_audit.png)
+![Security Audit Detailed View](docs/assets/security_audit_2.png)
 
 ---
 
@@ -85,10 +86,15 @@ Navigate to `http://localhost:3000` to view the **Real-time Security Audit** and
 ## 🔍 UI Showcase & Governance Demo
 
 ### Real-time Registry
-
 Maintain a sovereign source of truth for all agentic budgets.
 
 ![Agent Management Registry](docs/assets/agent_management.png)
+
+### Intelligent Budget Controls
+Visual safety locks prevent budget depletion and ensure agent liquidity.
+
+![Budget Adjustment Dialog](docs/assets/agent_management_2.png)
+![Revocation Confirmation](docs/assets/agent_management_3.png)
 
 ---
 
