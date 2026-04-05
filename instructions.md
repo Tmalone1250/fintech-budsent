@@ -128,3 +128,17 @@ Implement **Budget Sentinels**:
 
 - If a check returns **FAIL** or **UNKNOWN**  
   → Default response: **DENY**
+
+## Frontend & UI Standards (Sentinel-Pay)
+
+- **Aesthetic**: "Fintech Clean." Use a high-contrast, professional palette (Deep Navy, Slate, and Emerald for success). Avoid "Neon" or "Gamer" vibes.
+- **Component Library**: Exclusively use **Shadcn/UI** and **Tailwind CSS**.
+- **Typography**: Clean, sans-serif (Inter or Geist).
+- **Icons**: Use **Lucide-React** for all iconography.
+
+### UI Principles:
+
+1. **Observability First**: The "Live Audit Log" is the hero. It must show the raw JSON-like logs but formatted for human readability.
+2. **State Visualization**: Use Progress Bars for budgets. If an agent hits 90% of their limit, the bar should transition from Emerald to Amber.
+3. **Feedback Loops**: Every button click (Simulator) must trigger a Toast notification showing the `request_id` and the `status` (PASS/DENY/IDEMPOTENT).
+4. **The "Proof of Work" Section**: Explicitly create a "Security & Reliability" tab that explains the Idempotency and Atomicity logic to a non-technical viewer.

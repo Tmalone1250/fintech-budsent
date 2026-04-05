@@ -1,0 +1,17 @@
+{"timestamp": "2026-04-03T18:03:19.662406+00:00", "action": "AUTHORIZE", "agent_id": "agent_001", "amount": 100.0, "reason": "Success", "status": "PASS", "request_id": "528cd420b0b500d7"}
+{"timestamp": "2026-04-03T22:56:12.958872+00:00", "action": "AUTHORIZE", "agent_id": "agent_001", "amount": 100.0, "reason": "Success", "status": "PASS", "request_id": "b1ce6848b6f92e86"}
+{"timestamp": "2026-04-03T22:56:12.964193+00:00", "action": "SETTLE", "agent_id": "agent_001", "amount": 100.0, "reason": "Spent amount updated", "status": "PASS", "request_id": "e7e560dca428e9a3"}
+{"timestamp": "2026-04-04T17:47:02.579087+00:00", "action": "AUTHORIZE", "agent_id": "agent_001", "amount": 50.0, "reason": "Success", "status": "PASS", "request_id": "f2c29e05f813ed3c"}
+HTTP Request: POST http://127.0.0.1:8000/v1/orders "HTTP/1.1 503 Service Unavailable"
+{"timestamp": "2026-04-04T17:47:02.867874+00:00", "action": "GATEWAY_NOTIFY", "agent_id": "agent_001", "amount": 50.0, "reason": "Service Unavailable (Attempt 1)", "status": "RETRYING", "request_id": "c3e5c8df0344a0f1"}
+HTTP Request: POST http://127.0.0.1:8000/v1/orders "HTTP/1.1 503 Service Unavailable"
+{"timestamp": "2026-04-04T17:47:05.116781+00:00", "action": "GATEWAY_NOTIFY", "agent_id": "agent_001", "amount": 50.0, "reason": "Service Unavailable (Attempt 2)", "status": "RETRYING", "request_id": "c3e5c8df0344a0f1"}
+HTTP Request: POST http://127.0.0.1:8000/v1/orders "HTTP/1.1 503 Service Unavailable"
+{"timestamp": "2026-04-04T17:47:07.353133+00:00", "action": "GATEWAY_NOTIFY", "agent_id": "agent_001", "amount": 50.0, "reason": "Service Unavailable (Attempt 3)", "status": "RETRYING", "request_id": "c3e5c8df0344a0f1"}
+HTTP Request: POST http://127.0.0.1:8000/v1/orders "HTTP/1.1 503 Service Unavailable"
+{"timestamp": "2026-04-04T17:47:09.617493+00:00", "action": "GATEWAY_NOTIFY", "agent_id": "agent_001", "amount": 50.0, "reason": "Service Unavailable (Attempt 4)", "status": "RETRYING", "request_id": "c3e5c8df0344a0f1"}
+HTTP Request: POST http://127.0.0.1:8000/v1/orders "HTTP/1.1 503 Service Unavailable"
+{"timestamp": "2026-04-04T17:47:11.915959+00:00", "action": "GATEWAY_NOTIFY", "agent_id": "agent_001", "amount": 50.0, "reason": "Service Unavailable (Attempt 5)", "status": "RETRYING", "request_id": "c3e5c8df0344a0f1"}
+HTTP Request: POST http://127.0.0.1:8000/v1/orders "HTTP/1.1 200 OK"
+{"timestamp": "2026-04-04T17:47:14.165121+00:00", "action": "GATEWAY_NOTIFY", "agent_id": "agent_001", "amount": 50.0, "reason": "Merchant notified successfully", "status": "PASS", "request_id": "c3e5c8df0344a0f1"}
+{"timestamp": "2026-04-04T17:47:14.165121+00:00", "action": "SETTLE", "agent_id": "agent_001", "amount": 50.0, "reason": "Spent amount updated", "status": "PASS", "request_id": "ca51e57ea8f02525"}

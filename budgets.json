@@ -1,0 +1,12 @@
+{
+  "agent_001": {
+    "authorized_limit": 1000.0,
+    "spent_amount": 300.0,
+    "expiration_timestamp": "2026-12-31T23:59:59Z"
+  },
+  "agent_002": {
+    "authorized_limit": 500.0,
+    "spent_amount": 460.0,
+    "expiration_timestamp": "2026-06-30T23:59:59"
+  }
+}
