@@ -1,0 +1,22 @@
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Fintech Secrets & State
+.env
+security.log
+test_security.log
+budgets.json
+budgets.json.tmp
+budgets.json.lock
+idempotency_store.json
+idempotency_store.json.tmp
+idempotency_store.json.lock
+
+# OS Files
+.DS_Store
+Thumbs.db
