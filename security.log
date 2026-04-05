@@ -44,3 +44,24 @@ HTTP Request: POST http://127.0.0.1:8000/v1/orders "HTTP/1.1 200 OK"
 {"timestamp": "2026-04-05T17:21:34.354308+00:00", "action": "UPDATE_BUDGET", "agent_id": "undefined", "amount": 1500, "reason": "Update failed: Agent undefined not found", "status": "FAIL", "request_id": "5501b9ed6d5c3a96"}
 {"timestamp": "2026-04-05T17:31:16.376380+00:00", "action": "UPDATE_BUDGET", "agent_id": "agent_001", "amount": 1500, "reason": "Budget limit updated successfully", "status": "PASS", "request_id": "0a943f3459612896"}
 {"timestamp": "2026-04-05T17:34:23.909930+00:00", "action": "REVOKE_AGENT", "agent_id": "agent_002", "amount": 0.0, "reason": "Agent access revoked and removed", "status": "PASS", "request_id": "7956d04a6edcbfd9"}
+{"timestamp": "2026-04-05T18:59:38.156999+00:00", "action": "AUTHORIZE", "agent_id": "agent_001", "amount": 50.0, "reason": "Pre-auth check success", "status": "PASS", "request_id": "b2c395d73b7a2623"}
+HTTP Request: POST http://127.0.0.1:8000/v1/orders "HTTP/1.1 200 OK"
+{"timestamp": "2026-04-05T18:59:39.040502+00:00", "action": "GATEWAY_NOTIFY", "agent_id": "agent_001", "amount": 50, "reason": "Merchant notified successfully", "status": "PASS", "request_id": "req_g3vsde"}
+{"timestamp": "2026-04-05T18:59:39.051057+00:00", "action": "SETTLE", "agent_id": "agent_001", "amount": 50, "reason": "Safe Write atomic update success", "status": "PASS", "request_id": "f884b8ce2e821d76"}
+{"timestamp": "2026-04-05T18:59:49.469632+00:00", "action": "AUTHORIZE", "agent_id": "agent_001", "amount": 100.0, "reason": "Pre-auth check success", "status": "PASS", "request_id": "fafdc8011043da33"}
+HTTP Request: POST http://127.0.0.1:8000/v1/orders "HTTP/1.1 200 OK"
+{"timestamp": "2026-04-05T18:59:50.135446+00:00", "action": "GATEWAY_NOTIFY", "agent_id": "agent_001", "amount": 100, "reason": "Merchant notified successfully", "status": "PASS", "request_id": "req_7m12hs"}
+{"timestamp": "2026-04-05T18:59:50.146746+00:00", "action": "SETTLE", "agent_id": "agent_001", "amount": 100, "reason": "Safe Write atomic update success", "status": "PASS", "request_id": "f58cb4a359913b68"}
+{"timestamp": "2026-04-05T19:01:10.849866+00:00", "action": "UPDATE_BUDGET", "agent_id": "agent_001", "amount": 1500, "reason": "Budget limit updated successfully", "status": "PASS", "request_id": "4848f68582b948b0"}
+{"timestamp": "2026-04-05T19:07:26.035578+00:00", "action": "AUTHORIZE", "agent_id": "agent_001", "amount": 100.0, "reason": "Pre-auth check success", "status": "PASS", "request_id": "12a307ee90939efb"}
+HTTP Request: POST http://127.0.0.1:8000/v1/orders "HTTP/1.1 200 OK"
+{"timestamp": "2026-04-05T19:07:26.779691+00:00", "action": "GATEWAY_NOTIFY", "agent_id": "agent_001", "amount": 100, "reason": "Merchant notified successfully", "status": "PASS", "request_id": "req_89ch6on"}
+{"timestamp": "2026-04-05T19:07:26.792428+00:00", "action": "SETTLE", "agent_id": "agent_001", "amount": 100, "reason": "Safe Write atomic update success", "status": "PASS", "request_id": "4a9a74eabf9cf678"}
+{"timestamp": "2026-04-05T19:16:52.036899+00:00", "action": "AUTHORIZE", "agent_id": "agent_001", "amount": 100.0, "reason": "Pre-auth check success", "status": "PASS", "request_id": "ca87d1aaebb1a319"}
+HTTP Request: POST http://127.0.0.1:8000/v1/orders "HTTP/1.1 200 OK"
+{"timestamp": "2026-04-05T19:16:52.518984+00:00", "action": "GATEWAY_NOTIFY", "agent_id": "agent_001", "amount": 100, "reason": "Merchant notified successfully", "status": "PASS", "request_id": "req_porpxh"}
+{"timestamp": "2026-04-05T19:16:52.537127+00:00", "action": "SETTLE", "agent_id": "agent_001", "amount": 100, "reason": "Safe Write atomic update success", "status": "PASS", "request_id": "9c4027ba6aa7d275"}
+{"timestamp": "2026-04-05T19:17:23.647941+00:00", "action": "AUTHORIZE", "agent_id": "agent_001", "amount": 25.0, "reason": "Pre-auth check success", "status": "PASS", "request_id": "d74e5fe9694afed3"}
+HTTP Request: POST http://127.0.0.1:8000/v1/orders "HTTP/1.1 200 OK"
+{"timestamp": "2026-04-05T19:17:24.057301+00:00", "action": "GATEWAY_NOTIFY", "agent_id": "agent_001", "amount": 25, "reason": "Merchant notified successfully", "status": "PASS", "request_id": "req_ld3i3n"}
+{"timestamp": "2026-04-05T19:17:24.067830+00:00", "action": "SETTLE", "agent_id": "agent_001", "amount": 25, "reason": "Safe Write atomic update success", "status": "PASS", "request_id": "d23b4ba3e4ebcd2f"}

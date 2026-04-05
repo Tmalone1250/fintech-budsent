@@ -1,25 +1,26 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
 } from "@/components/ui/table"
-import { 
-  Sheet, 
-  SheetContent, 
-  SheetHeader, 
-  SheetTitle, 
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
   SheetDescription
 } from "@/components/ui/sheet"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Shield, Clock, Activity, Info } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 interface AuditLog {
   event: string
@@ -147,10 +148,17 @@ export default function SecurityAuditPage() {
                   <TableCell className="text-right">
                     <Sheet>
                       <SheetTrigger asChild>
-                        <div className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer inline-flex items-center justify-center">
+                        {/* Use the Button component instead of a div */}
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="rounded-full h-8 w-8 text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                        >
                           <Info className="w-4 h-4" />
-                        </div>
+                          <span className="sr-only">View Details</span>
+                        </Button>
                       </SheetTrigger>
+
                       <SheetContent className="sm:max-w-md bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800">
                         <SheetHeader className="mb-6">
                           <SheetTitle className="text-xl font-bold flex items-center gap-2">

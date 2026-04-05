@@ -1,7 +1,7 @@
 {
   "agent_001": {
     "authorized_limit": 1500,
-    "spent_amount": 250.0,
+    "spent_amount": 625.0,
     "expiration_timestamp": "2026-12-31T23:59:59Z"
   }
 }
