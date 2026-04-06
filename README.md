@@ -44,6 +44,23 @@ Every action (AUTHORIZATION, SETTLEMENT, REVOCATION, RETRIES) is captured in a h
 
 ---
 
+## 🧠 Risk Intelligence Architecture (v1.0)
+
+Sentinel-Pay includes a standalone **Risk API** (`/risk_api`) that evaluates every transaction intent before it reaches the settlement layer.
+
+### Multi-Factor Evaluation Engine
+The `scorer.py` engine calculates a weighted risk score (0-100) based on three critical factors:
+1. **Anomaly (40%)**: Statistical $Z$-score from the **Aura Engine**, detecting spending outliers in real-time.
+2. **Velocity (30%)**: Transaction frequency for the specific `agent_id` within a rolling 10-minute window.
+3. **Magnitude (30%)**: The transaction amount relative to the agent's total authorized budget.
+
+### Dynamic Thresholding
+- **Score < 70 (APPROVE)**: Transaction proceeds to the Reliability Shield.
+- **Score 70-85 (REVIEW)**: "Soft Decline" — requires manual administrative override.
+- **Score > 85 (BLOCK)**: "Hard Block" — immediate rejection and security audit event.
+
+---
+
 ## 🚀 Developer Quickstart
 
 Get the Sentinel-Pay governance stack running in under 2 minutes.
@@ -51,35 +68,34 @@ Get the Sentinel-Pay governance stack running in under 2 minutes.
 ### 1. Initialize Environments
 
 ```bash
-# Python Backend
+# Python Backend & Risk API
 pip install pydantic httpx fastapi uvicorn
 
 # Next.js Frontend
 npm install
 ```
 
-### 2. Launch the Mock Merchant Server (Testing Gateway)
-
+### 2. Launch Services
 ```bash
+# 1. Start the Risk API
+python -m risk_api.main
+
+# 2. Start the Mock Merchant Server (Testing Gateway)
 python mock_server.py
-```
 
-### 3. Start the Sentinel-Pay Dashboard
-
-```bash
+# 3. Start the Sentinel-Pay Dashboard
 npm run dev
 ```
-
-Navigate to `http://localhost:3000` to view the **Real-time Security Audit** and **Agent Governance** portal.
 
 ---
 
 ## 🛠️ System Architecture
 
 - **Security Core (`sentinel.py`)**: The primary logic engine for pre-auth and atomic settlement.
+- **Risk Intelligence (`risk_api/`)**: Standalone FastAPI service for real-time transaction scoring (< 50ms latency).
+- **Aura Engine (`aura_engine/`)**: Real-time statistical monitor for anomaly detection (Observe -> Orient -> Decide -> Act).
 - **Merchant Gateway (`gateway.py`)**: Handles the merchant notification protocol with mandatory retry logic.
 - **Governance UI**: Built with **Next.js 16**, **Tailwind CSS**, and **Shadcn/UI** for a premium "Fintech Clean" aesthetic.
-- **Safety Suite (`test_sentinel.py`)**: Comprehensive unit tests covering idempotency, Safe-Writes, and budget guardrails.
 
 ---
 
