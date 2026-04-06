@@ -35,4 +35,3 @@
 - **Trigger**: Completion of a standalone feature or a new directory/microservice (e.g., /risk_api).
 - **Action**: Automatically perform a 'Surgical Update' to README.md.
 - **Requirement**: Update the Architecture Diagram (if text-based), the 'Technical Specs' section, and add the new 'Reason Codes' or 'Logic Patterns' introduced.
-- **Verification**: Ensure all new environment variables are added to `.env.example`.

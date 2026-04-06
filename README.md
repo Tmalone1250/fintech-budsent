@@ -10,13 +10,34 @@
 
 ---
 
-## 🏛️ The Philosophy of Win-Win-Win
+## 🏗️ System Architecture & Data Flow
 
-We believe the future of commerce belongs to autonomous agents. However, that future requires a new social contract of trust:
+```mermaid
+graph TD
+    subgraph Execution_Layer
+        SP[Sentinel-Pay]
+        SL[Security Log]
+        BW[Budgets & Safe-Write]
+    end
 
-- **For Platforms**: Zero credit risk. Sentinel-Pay ensures that every transaction is pre-authorized against a hard-coded or dynamically governed budget limit.
-- **For Developers**: Infinite scalability. Agents can focus on complex strategies without needing to manage ledger-level concurrency or safety logic.
-- **For Merchants**: Guaranteed settlement. Every intent processed through the sentinel is atomically committed, idempotently safe, and merchant-notified before finality.
+    subgraph Monitoring_Layer
+        AE[Aura Engine]
+        AV[Anomaly Vault]
+    end
+
+    subgraph Intelligence_Layer
+        RA[Risk API Scorer]
+    end
+
+    AE -->|Statistical Tick| AV
+    AV -->|Z-Score| RA
+    SL -->|Velocity Data| RA
+    BW -->|Magnitude Data| RA
+    
+    TI[Transaction Intent] --> RA
+    RA -->|Risk Score 0-100| SP
+    SP -->|Atomic Settle| SL
+```
 
 ---
 
@@ -25,18 +46,14 @@ We believe the future of commerce belongs to autonomous agents. However, that fu
 At the core of Sentinel-Pay is the three-pillar **Reliability Shield**, designed for 100% data integrity even in high-concurrency environments.
 
 ### 1. 🔄 Idempotency Engine
-
 Prevent double-spending. Each transaction is uniquely identified by a `request_id`. Our engine caches results in `idempotency_store.json`, ensuring that even if a network retry occurs or an agent double-fires, the budget is only impacted once.
 
 ### 2. ⚛️ Atomic Safe-Write
-
 Financial data is precious. We use an **MSVCRT-locked**, temp-swap pattern to update `budgets.json`.
-
 - **The Protocol**: Lock → Read → Modify → Write `.tmp` → Sync/Flush → `os.replace`.
 - **The Result**: Zero file corruption, even if the system crashes mid-transaction.
 
 ### 3. 🧾 Deterministic Audit Trail
-
 Every action (AUTHORIZATION, SETTLEMENT, REVOCATION, RETRIES) is captured in a high-fidelity JSON-structured log (`security.log`). This enables real-time monitoring and exhaustive post-mortem forensic analysis.
 
 ![Security Audit Trace](docs/assets/security_audit.png)
@@ -50,14 +67,19 @@ Sentinel-Pay includes a standalone **Risk API** (`/risk_api`) that evaluates eve
 
 ### Multi-Factor Evaluation Engine
 The `scorer.py` engine calculates a weighted risk score (0-100) based on three critical factors:
-1. **Anomaly (40%)**: Statistical $Z$-score from the **Aura Engine**, detecting spending outliers in real-time.
-2. **Velocity (30%)**: Transaction frequency for the specific `agent_id` within a rolling 10-minute window.
+1. **Anomaly (40%)**: Statistical $Z$-score from the **Aura Engine**, using **Welford's Algorithm** for real-time monitoring.
+2. **Velocity (30%)**: Transaction frequency for the `agent_id` within a rolling 10-minute window.
 3. **Magnitude (30%)**: The transaction amount relative to the agent's total authorized budget.
 
-### Dynamic Thresholding
-- **Score < 70 (APPROVE)**: Transaction proceeds to the Reliability Shield.
-- **Score 70-85 (REVIEW)**: "Soft Decline" — requires manual administrative override.
-- **Score > 85 (BLOCK)**: "Hard Block" — immediate rejection and security audit event.
+### Governance Logic (Reason Codes)
+
+| Code | Label | Logic Pattern | Threshold |
+| :--- | :--- | :--- | :--- |
+| **R01** | High Velocity | `tx_count > 5` in last 10m | 30% Weight |
+| **R02** | High Z-Score | `amount > mean + 3.0σ` | 40% Weight |
+| **R03** | Large Magnitude | `amount > 70%` of remaining budget | 30% Weight |
+| **T01** | Hard Block | `Total Score > 85` | Final DENY |
+| **T02** | Soft Decline | `Total Score 70 - 85` | Admin REVIEW |
 
 ---
 
@@ -77,24 +99,22 @@ npm install
 
 ### 2. Launch Services
 ```bash
-# 1. Start the Risk API
-python -m risk_api.main
-
-# 2. Start the Mock Merchant Server (Testing Gateway)
-python mock_server.py
-
-# 3. Start the Sentinel-Pay Dashboard
-npm run dev
+# Start the components in sequence:
+python -m risk_api.main        # Risk Evaluation Layer
+python mock_server.py          # Mock Merchant Server
+npm run dev                    # Governance Dashboard
 ```
+
+Navigate to `http://localhost:3000` to view the **Real-time Security Audit** and **Agent Governance** portal.
 
 ---
 
-## 🛠️ System Architecture
+## 🛠️ Technical Specifications
 
-- **Security Core (`sentinel.py`)**: The primary logic engine for pre-auth and atomic settlement.
-- **Risk Intelligence (`risk_api/`)**: Standalone FastAPI service for real-time transaction scoring (< 50ms latency).
+- **Security Core (`sentinel.py`)**: Primary logic engine for pre-auth and atomic settlement.
+- **Risk Intelligence (`risk_api/`)**: Standalone FastAPI service with **1.58ms average latency**.
 - **Aura Engine (`aura_engine/`)**: Real-time statistical monitor for anomaly detection (Observe -> Orient -> Decide -> Act).
-- **Merchant Gateway (`gateway.py`)**: Handles the merchant notification protocol with mandatory retry logic.
+- **Merchant Gateway (`gateway.py`)**: Handles the merchant notification protocol with retry logic.
 - **Governance UI**: Built with **Next.js 16**, **Tailwind CSS**, and **Shadcn/UI** for a premium "Fintech Clean" aesthetic.
 
 ---
